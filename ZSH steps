@@ -1,0 +1,26 @@
+Installation of ZSH on Ubuntu 
+sudo apt install zsh
+zsh --version 
+echo $SHELL
+chsh -s $(which zsh)
+wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
+cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
+source ~/.zshrc
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+vim ~/.zshrc 
+
+Run the below command on your terminal
+vim ~/.zshrc file
+
+Find the plugin section and Add these two lines.
+
+plugins=(git
+zsh-autosuggestions
+zsh-syntax-highlighting
+)
+
+At last run below commands:
+
+source ~/.zshrc
+zsh
