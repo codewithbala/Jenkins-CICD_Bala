@@ -27,8 +27,8 @@ Now that you have switched to the `3.1.1-maven-style` branch.
 
 This guide will walk you through creating a Jenkins Maven job for the following GitHub repository and branch:
 
-- Repository: https://github.com/manikcloud/Jenkins-cicd.git
-- Branch: 3.1.1-maven-style
+- Repository: 
+- Branch: maven-project
 
 ## Prerequisites
 
