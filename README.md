@@ -9,7 +9,7 @@ In the previous branch, we created a simple Java HelloWorld program using the Ja
 
 1. Clone the repository to your local machine by running the following command:
 ```
-git clone https://github.com/manikcloud/Jenkins-cicd.git
+git clone https://github.com/codewithbala/Jenkins-CICI_Bala.git
 ```
 2. Navigate to the cloned repository:
 ```
@@ -27,8 +27,8 @@ Now that you have switched to the `3.1.1-maven-style` branch.
 
 This guide will walk you through creating a Jenkins Maven job for the following GitHub repository and branch:
 
-- Repository: https:
-- Branch: maven-style
+- Repository: https://github.com/codewithbala/Jenkins-CICI_Bala.git
+- Branch: maven
 
 ## Prerequisites
 
@@ -42,8 +42,8 @@ This guide will walk you through creating a Jenkins Maven job for the following 
 
 2. **Configure the GitHub repository**:
    - In the job configuration page, navigate to the `Source Code Management` section.
-   - Select `Git` and enter the repository URL: 
-   - Enter the branch specifier: `3.1.1-maven-style`
+   - Select `Git` and enter the repository URL:  https://github.com/codewithbala/Jenkins-CICI_Bala.git
+   - Enter the branch specifier: `3.1.1-maven`
 
 3. **Configure build triggers**: (Optional) If you want to trigger the build automatically, you can set up build triggers in the `Build Triggers` section. For example, you can use the `Poll SCM` option to periodically check the repository for changes.
 
