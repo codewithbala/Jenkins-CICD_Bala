@@ -9,7 +9,7 @@ In the previous branch, we created a simple Java HelloWorld program using the Ja
 
 1. Clone the repository to your local machine by running the following command:
 ```
-git clone https://github.com/manikcloud/Jenkins-cicd.git
+git clone https://github.com/codewithbala/Jenkins-cicd.git
 ```
 2. Navigate to the cloned repository:
 ```
