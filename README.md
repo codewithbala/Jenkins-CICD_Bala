@@ -42,7 +42,7 @@ This guide will walk you through creating a Jenkins Maven job for the following 
 
 2. **Configure the GitHub repository**:
    - In the job configuration page, navigate to the `Source Code Management` section.
-   - Select `Git` and enter the repository URL: `https://github.com/manikcloud/Jenkins-cicd.git`
+   - Select `Git` and enter the repository URL: `https://github.com/codewithbala/Jenkins-cicd.git`
    - Enter the branch specifier: `3.1.1-maven-style`
 
 3. **Configure build triggers**: (Optional) If you want to trigger the build automatically, you can set up build triggers in the `Build Triggers` section. For example, you can use the `Poll SCM` option to periodically check the repository for changes.
