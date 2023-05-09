@@ -297,14 +297,5 @@ echo "User Gender is : $Sex"
 1. https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html
 2. https://maven.apache.org/download.cgi
 
-## Connect & Follow
 
-For more info, please connect and follow me:
-
-- Github: [https://github.com/manikcloud](https://github.com/manikcloud)
-- LinkedIn: [https://www.linkedin.com/in/vkmanik/](https://www.linkedin.com/in/vkmanik/)
-- Email: [varunmanik1@gmail.com](mailto:varunmanik1@gmail.com)
-- Facebook: [https://www.facebook.com/cloudvirtualization/](https://www.facebook.com/cloudvirtualization/)
-- YouTube: [https://bit.ly/32fknRN](https://bit.ly/32fknRN)
-- Twitter: [https://twitter.com/varunkmanik](https://twitter.com/varunkmanik)
 
