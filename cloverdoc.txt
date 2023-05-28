@@ -1,0 +1,2 @@
+install -Dmaven.test.failure.ignore=true clover:instrument clover:aggregate –N clover:aggregate clover:clover
+
