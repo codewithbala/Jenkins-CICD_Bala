@@ -1,36 +1,36 @@
-login as root user
+//login as root user
 sudo -i 
 
-install wget
+//install wget
 sudo apt install unzip wget -y
 
-get into opt folder
+//get into opt folder
 cd /opt/
 
-download sonarqube-7.8.zip
+//download sonarqube-7.8.zip
 wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-7.8.zip
 
-unzip sonarqube
+//unzip sonarqube
 unzip sonarqube-7.8.zip 
 ll
 
-rename the dir to sonarqube, to make things easier
+//rename the dir to sonarqube, to make things easier
 mv sonarqube-7.8 sonarqube
 ll
 
-add an user sonar
+//add an user sonar
 sudo useradd sonar
 
-change the ownership 
+//change the ownership 
 sudo chown -R sonar:sonar /opt/sonarqube
 
-open sonar.sh
+//open sonar.sh
 vim /opt/sonarqube/bin/linux-x86-64/sonar.sh
 
-Add this line in sonar.sh file
+//Add this line in sonar.sh file
 RUN_AS_USER=sonar
 
-Run Sonarqube
+//Run Sonarqube
 /opt/sonarqube/bin/linux-x86-64/sonar.sh console
 
 or
