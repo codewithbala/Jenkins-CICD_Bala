@@ -1,85 +1,126 @@
-# Jenkins-CICD_Bala
-Lesson 5 Demo 2: Building Continuous Integration Pipelines in Jenkins WITHOUT JENKINSFILE
+# Integration of Sonarqube Docker with Jenkins on EC2 instance 
+### Minimum 8 GB RAM required for seamless performance
+
+```
+docker run -d --name sonarqube -e SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true -p 9000:9000 sonarqube:latest
+
+```
+#### Once your instance is up and running, Log in to http://localhost:9000 using System Administrator credentials:
+
+- login: admin
+- password: admin
+
+# Integration of Sonarqube 7.8 version with Jenkins on EC2 instance 
+### Minimum 8 GB RAM required for seamless performance
 This section will guide you to:
+●	Integrate SonarQube with Jenkins
+```
+This guide has three subsections, namely:
+1.	Installing SonarQube 7.8 
+2.	Installing and configuring SonarQube plugin in Jenkins
+3.	Creating a Jenkins job and running Sonarqube Scanner 
+```
 
-Build Continuous Integration Pipelines in Jenkins
-This lab has two sub-sections, namely:
+## Downlaod your Sonarqube package 
+### NOTE: Make sure you have SUDO rights on EC2 virtual machine 
+- sudo -i before doing anythin in this project
 
-Building a Maven project
-Creating a Pipeline to build the project
-Step 1: Building a Maven project
-Go to start.spring.io/
+```
+sudo -i 
 
-Select Maven as the project type
+sudo apt install unzip wget -y
 
-Fill Group and Artifact with appropriate values. For example, com.simplilearn and Calculator
+cd /opt/
 
-Add Web (Spring Web) to Dependencies
+wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-7.8.zip
 
-Select Packaging: Jar
+unzip sonarqube-7.8.zip 
+ll
+mv sonarqube-7.8 sonarqube
+ll
+```
+### Add Sonar User & Change Ownership of sonarqube diretory 
+```
+sudo useradd sonar
 
-Select Java: 11
+sudo chown -R sonar:sonar /opt/sonarqube
+```
 
-Click on Generate Project
+### Add this line in sonar.sh file 
+```
+vim /opt/sonarqube/bin/linux-x86-64/sonar.sh 
 
-The generated skeleton project should be downloaded as a zip file
+RUN_AS_USER=sonar
+```
+### Run Sonarqube
 
-Open the terminal and navigate to an appropriate location
+```
+/opt/sonarqube/bin/linux-x86-64/sonar.sh start
 
-Unzip the downloaded spring boot project to the cloned repository
+OR
 
-cd Downloads
-unzip Calculator.zip
-Copy the contents of Calculator folder present in downloads and paste it into your repository folder)
+/opt/sonarqube/bin/linux-x86-64/sonar.sh console
+```
 
-Commit the changes to the remote SCM
+### Note: Closing this terminal window will stop/kill the sonarqube process. Do not close this terminal window till you complete the demo.
 
-Run git add .
+●	Open the browser and navigate to http://localhost:9000 OR  http://your_vm_ip:9000 (ex: http://3.91.21.117:9000/)
+ 
+●	Log in to sonarqube server with System Administrator credentials (admin/admin) 
+●	Go to Administration > Security > Users > Tokens 
 
-Run git commit -m "Add logic and test"
+ 
+●	Click on token and generate a token with name: Jenkins as shown below:
+ 
+●	Copy the generated token and note it down. It will be used in Jenkins for Sonar authentication
 
-Run git push -u origin master
+## Step 2: Installing and configuring SonarQube plugin in Jenkins
 
-Step 2: Creating a Pipeline
-Go to Jenkins dashboard
+●	Go to Manage Jenkins > Manage Plugins > Available > search for SonarQube Scanner> Click on install without restart
+ 
+ 
 
-Click on New Item
+●	Go to Jenkins dashboard > Manage Jenkins > Manage Credentials
+ 
+●	Click on Jenkins as shown above and in the Global credentials unrestricted page, click on  Add Credentials
+ 
+●	Select the kind as Secret text from the drop-down. Paste the token that you had earlier copied from the sonarqube server into the Secret field. Give the ID and description as shown below and click on ok.
+ 
+You will see the credentials added in the Global credentials page
+ 
+●	Go to Jenkins dashboard > Manage Jenkins > Configure system > SonarQube servers section > Click on the checkbox Enable injection of sonarqube server configuration as build environment variable
+●	Click on Add SonarQube > provide a name (ex: LocalSonarQube) and Server URL as http://localhost:9000. Select the authentication token from the list and click on Apply and Save as shown below:
+ 
+●	Go to Manage Jenkins > Global Tool Configuration > Scroll for SonarQube Scanner > Add SonarQube Scanner > provide a name (ex: LocalSonarScanner), check Install automatically and select the version 3.2.0 from the drop-down list as shown below:
+ 
 
-Enter a name for your build job
+## Step 3: Creating a Jenkins job and running Sonarqube Scanner
 
-Select Pipeline as the build job type
+●	Create a new job > provide a name (ex: Sonar-Jenkins), and select project type as freestyle
+●	Under SCM select Git and enter the git repository of the simple-java-maven-app that we had created earlier in the demo 4 of lesson 3
 
-Click OK
+ 
+●	In the build section click on Add a build step and select the option Execute SonarQube Scanner from the drop-down list.
+ 
 
-Scroll down to the Pipeline section and enter the script below:
+●	Enter the details in the Analysis properties section as shown below:
+```
+#Required metadata
+sonar.projectKey=com.mycompany.app:my-app
+sonar.projectName=my-app
+sonar.projectVersion=1.0
+#Path to Source directory
+sonar.sources= ./src
+sonar.java.binaries=.
+```
+ 
+●	Click on Apply and Save
 
-pipeline {
-    agent any
-    tools {
-        maven 'myMaven'
-    }
-    stages {
-        stage("Checkout") {
-            steps {
-                git url: '<YourGithubRepoURL>'
-            }
-        }
-        stage('Build') {
-            steps {
-                sh "mvn compile"
-            }
-        }
-        stage("Unit test") {
-            steps {
-                sh "mvn test"
-            }
-        }
-    }
-}
-Click Save
+●	Build the job
 
-Click Build Now in the project window to make sure that the build works. Jenkins will now build your project.
+●	On successful completion of the build from the console output you can see the project in the sonarqube server by clicking the link as shown in the output
+ 
 
-Click on the Build History to view the build results
 
-Click on the Logs to view the build logs in each stage
+- You can also check the report on the sonarqube server. From the job dashboard, click on the sonarqube icon, and then click on Projects. You can see the report as shown below:
+ 
