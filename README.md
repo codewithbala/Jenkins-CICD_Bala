@@ -19,7 +19,7 @@ sudo systemctl enable docker
 
 - Git clone &
 ```
-git clone https://github.com/manikcloud/Jenkins-cicd.git
+git clone https://github.com/codewithbala/Jenkins-CICD.git
 
 ```
 - change the branch
