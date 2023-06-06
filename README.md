@@ -1,85 +1,64 @@
-# Jenkins-CICD_Bala
-Lesson 5 Demo 2: Building Continuous Integration Pipelines in Jenkins WITHOUT JENKINSFILE
-This section will guide you to:
+# Installing Docker in Ubuntu 
 
-Build Continuous Integration Pipelines in Jenkins
-This lab has two sub-sections, namely:
+```
+sudo apt install docker.io -y
+sudo systemctl start docker 
+sudo systemctl enable docker 
 
-Building a Maven project
-Creating a Pipeline to build the project
-Step 1: Building a Maven project
-Go to start.spring.io/
+```
 
-Select Maven as the project type
+# Installing Docker in Amazon linux
+```
+sudo yum install docker -y 
+sudo systemctl start docker 
+sudo systemctl enable docker 
 
-Fill Group and Artifact with appropriate values. For example, com.simplilearn and Calculator
+```
 
-Add Web (Spring Web) to Dependencies
+# Simple Python Flask Dockerized Application#
 
-Select Packaging: Jar
+- Git clone &
+```
+git clone https://github.com/codewithbala/Jenkins-CICD.git
 
-Select Java: 11
+```
+- change the branch
+```
+git switch  8.2-python-flask-app
+```
+## Build the image using the following command
 
-Click on Generate Project
+```bash
+sudo docker build -t flask-app:latest .
+```
 
-The generated skeleton project should be downloaded as a zip file
+Run the Docker container using the command shown below.
 
-Open the terminal and navigate to an appropriate location
+```bash
+sudo docker run -d -p 5000:5000 flask-app
 
-Unzip the downloaded spring boot project to the cloned repository
+```
 
-cd Downloads
-unzip Calculator.zip
-Copy the contents of Calculator folder present in downloads and paste it into your repository folder)
+- The application will be accessible at http:127.0.0.1:5000 
+- If you are using AWS EC2 VM then first find ip address  and the use the ip `http://<host_ip>:5000`
 
-Commit the changes to the remote SCM
 
-Run git add .
+# Jenkins Job setup "execute shell"
 
-Run git commit -m "Add logic and test"
+```
 
-Run git push -u origin master
+echo "running python-flask-app project"
+#sudo docker rmi `docker images -aq` -f
+sudo docker rm -f `docker ps -aq` 
+sudo docker build -t flask-app:$BUILD_ID .
+sudo docker run -d -p 5000:5000 flask-app:$BUILD_ID
 
-Step 2: Creating a Pipeline
-Go to Jenkins dashboard
+```
 
-Click on New Item
+## Common Error
+ Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: connect: permission denied
 
-Enter a name for your build job
-
-Select Pipeline as the build job type
-
-Click OK
-
-Scroll down to the Pipeline section and enter the script below:
-
-pipeline {
-    agent any
-    tools {
-        maven 'myMaven'
-    }
-    stages {
-        stage("Checkout") {
-            steps {
-                git url: '<YourGithubRepoURL>'
-            }
-        }
-        stage('Build') {
-            steps {
-                sh "mvn compile"
-            }
-        }
-        stage("Unit test") {
-            steps {
-                sh "mvn test"
-            }
-        }
-    }
-}
-Click Save
-
-Click Build Now in the project window to make sure that the build works. Jenkins will now build your project.
-
-Click on the Build History to view the build results
-
-Click on the Logs to view the build logs in each stage
+- to overcome this error plz run the below command:
+```
+chmod 777 /var/run/docker.sock
+```
