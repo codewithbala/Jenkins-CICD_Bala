@@ -1,0 +1,35 @@
+sudo yum install wget
+yum install java-1.8.0-openjdk
+
+export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.252.b09–2.amzn2.0.1.x86_64
+export PATH
+sudo alternatives --config java
+
+java -version
+
+sudo yum install wget
+wget --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u181-b13/96a7b8442fe848ef90c96a2fad6ed6d1/jdk-8u181-linux-x64.rpm
+https://devops4solutions.com/java-installation-linux/
+
+Jenkins installation on AWS ec2 linux instance
+Step 1. Firstly, add Jenkins repository using wget, so that yum get to know where to install Jenkins from.
+sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo
+
+Step 2. Now, let’s add the Jenkins GPG key to our trusted keys, so that we will be able to verify/trust the files that are being sourced (while installing Jenkins )are from trusted site.
+sudo rpm --import http://pkg.jenkins-ci.org/redhat/jenkins-ci.org.key
+
+As now, the environment has been prepared and has resolved the required dependencies, lets install Jenkins.
+
+sudo yum install jenkins
+
+Step 3. Jenkins services needs to be started, with the following command:
+sudo service jenkins start
+
+*If you wish to start Jenkins automatically when your linux instance is started, then you can use chkconfig to add Jenkins to your startup services.
+
+sudo chkconfig --add jenkins
+
+Step 5. Go to your browser and connect to jenkins via default port 8080
+http://<IP_address>:8080
+
+IP_address : you can use public DNS of your ec2 linux instance
