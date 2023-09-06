@@ -1,5 +1,5 @@
 FROM python:3.6
-MAINTAINER Varun Manik "bala@gmail.com"
+MAINTAINER Bala Sudhakar "bala@gmail.com"
 COPY . /app
 WORKDIR /app
 RUN pip install -r requirements.txt
